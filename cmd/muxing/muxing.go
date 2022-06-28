@@ -41,7 +41,7 @@ func Start(host string, port int) {
 			log.Fatal(err)
 		}
 
-		fmt.Fprintf(w, "Hello, %s!", string(bytes))
+		fmt.Fprintf(w, "I got message:\n%s", string(bytes))
 	}).Methods(http.MethodPost)
 
 	router.HandleFunc("/headers", func(w http.ResponseWriter, r *http.Request) {
