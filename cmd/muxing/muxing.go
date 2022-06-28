@@ -45,11 +45,17 @@ func Start(host string, port int) {
 	}).Methods(http.MethodPost)
 
 	router.HandleFunc("/headers", func(w http.ResponseWriter, r *http.Request) {
-		for key, values := range r.Header {
-			for _, value := range values {
-				w.Header().Add(key, value)
-			}
+		a, err := strconv.Atoi(r.Header.Get("a"))
+		if err != nil {
+			log.Fatal(err)
 		}
+
+		b, err := strconv.Atoi(r.Header.Get("b"))
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		w.Header().Add("a+b", strconv.Itoa(a+b))
 	}).Methods(http.MethodPost)
 
 	log.Println(fmt.Printf("Starting API server on %s:%d\n", host, port))
